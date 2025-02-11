@@ -22,12 +22,3 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
-
-# Project
-portals
-portals.zip
-src/assets/sprites.svg
-*.tsbuildinfo
-coverage
-reports
-public/config.dev.json

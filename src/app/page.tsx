@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { Button, Typography, Space } from "antd";
 import Link from "next/link";
@@ -10,11 +10,15 @@ export default function Home() {
         Добро пожаловать в Quiz App
       </Typography.Title>
       <Typography.Paragraph className="text-center max-w-xl">
-        Платформа для подготовки к фронтенд-собеседованиям: теория, практика и квизы по дисциплинам. Войдите или зарегистрируйтесь, чтобы получить доступ к персональным возможностям.
+        Платформа для подготовки к фронтенд-собеседованиям: теория, практика и
+        квизы по дисциплинам. Войдите или зарегистрируйтесь, чтобы получить
+        доступ к персональным возможностям.
       </Typography.Paragraph>
       <Space size="large">
         <Link href="/login">
-          <Button type="primary" size="large">Login</Button>
+          <Button type="primary" size="large">
+            Login
+          </Button>
         </Link>
         <Link href="/sign-up">
           <Button size="large">Sign Up</Button>

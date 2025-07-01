@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import Cookies from 'js-cookie';
 import { useQueryClient } from '@tanstack/react-query';
+import { redirectTo } from '@/lib/redirect';
 
 export const useAuth = () => {
   const queryClient = useQueryClient();
@@ -22,7 +23,7 @@ export const useAuth = () => {
     // Invalidate all queries to clear user-specific data
     queryClient.invalidateQueries();
     // Redirect to login page
-    window.location.href = '/login';
+    redirectTo('/login');
   };
 
   return { isAuthenticated, logout };

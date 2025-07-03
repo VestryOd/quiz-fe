@@ -5,15 +5,24 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { usePostAuthSignUp } from "@/api/authentication/authentication";
 
+type SignUpFormValues = {
+  user_name: string;
+  user_email: string;
+  user_password: string;
+  confirm: string;
+};
+
+function isAxiosError(error: unknown): error is import("axios").AxiosError {
+  return typeof error === 'object' && error !== null && 'isAxiosError' in error;
+}
+
 export default function SignUpPage() {
   const router = useRouter();
   const { mutate: signUp, isPending } = usePostAuthSignUp();
 
-  const onFinish = (values: any) => {
-    // The API expects user_name, user_email, user_password.
-    // The 'confirm' field is only for UI validation and should not be sent.
+  const onFinish = (values: SignUpFormValues) => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { confirm, ...apiValues } = values;
-
     signUp(
       { data: apiValues },
       {
@@ -21,10 +30,14 @@ export default function SignUpPage() {
           message.success("Регистрация прошла успешно! Теперь вы можете войти.");
           router.push("/login");
         },
-        onError: (error: any) => {
-          console.error("Failed to sign up:", error);
-          const errorMessage =
-            error.response?.data?.message || "Произошла ошибка при регистрации.";
+        onError: (error) => {
+          let errorMessage = "Произошла ошибка при регистрации.";
+          if (isAxiosError(error)) {
+            const data = error.response?.data;
+            if (data && typeof data === 'object' && 'message' in data && typeof data.message === 'string') {
+              errorMessage = data.message;
+            }
+          }
           message.error(errorMessage);
         },
       },

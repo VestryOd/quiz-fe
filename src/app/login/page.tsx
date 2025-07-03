@@ -7,13 +7,22 @@ import { usePostAuthLogin } from "@/api/authentication/authentication";
 import Cookies from "js-cookie";
 import { useQueryClient } from "@tanstack/react-query";
 
+function isAxiosError(error: unknown): error is import("axios").AxiosError {
+  return typeof error === 'object' && error !== null && 'isAxiosError' in error;
+}
+
 export default function LoginPage() {
   const router = useRouter();
   const queryClient = useQueryClient();
 
   const { mutate: login, isPending } = usePostAuthLogin();
 
-  const onFinish = (values: any) => {
+  type LoginFormValues = {
+    user_email: string;
+    user_password: string;
+  };
+
+  const onFinish = (values: LoginFormValues) => {
     login(
       { data: values },
       {
@@ -27,10 +36,14 @@ export default function LoginPage() {
           
           router.push("/profile");
         },
-        onError: (error: any) => {
-          console.error("Failed to login:", error);
-          const errorMessage =
-            error.response?.data?.message || "Ошибка входа. Проверьте учетные данные.";
+        onError: (error) => {
+          let errorMessage = "Ошибка входа. Проверьте учетные данные.";
+          if (isAxiosError(error)) {
+            const data = error.response?.data;
+            if (data && typeof data === 'object' && 'message' in data && typeof data.message === 'string') {
+              errorMessage = data.message;
+            }
+          }
           message.error(errorMessage);
         },
       },

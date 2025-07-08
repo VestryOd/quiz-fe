@@ -7,7 +7,7 @@
  */
 
 export type TheoryLinksItem = {
-  resource_name?: string;
+  resource_name: string;
   url: string;
-  title?: string;
+  title: string;
 };

@@ -35,137 +35,6 @@ import { customInstance } from "../../lib/axios-instance";
 type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1];
 
 /**
- * Get all existing disciplines
- * @summary Get all existing disciplines
- */
-export const getDisciplines = (
-  options?: SecondParameter<typeof customInstance>,
-  signal?: AbortSignal,
-) => {
-  return customInstance<Discipline[]>(
-    { url: `/disciplines/get-all`, method: "GET", signal },
-    options,
-  );
-};
-
-export const getGetDisciplinesQueryKey = () => {
-  return [`/disciplines/get-all`] as const;
-};
-
-export const getGetDisciplinesQueryOptions = <
-  TData = Awaited<ReturnType<typeof getDisciplines>>,
-  TError = UnauthorizedErrorResponse | PermissionDeniedErrorResponse,
->(options?: {
-  query?: Partial<
-    UseQueryOptions<Awaited<ReturnType<typeof getDisciplines>>, TError, TData>
-  >;
-  request?: SecondParameter<typeof customInstance>;
-}) => {
-  const { query: queryOptions, request: requestOptions } = options ?? {};
-
-  const queryKey = queryOptions?.queryKey ?? getGetDisciplinesQueryKey();
-
-  const queryFn: QueryFunction<Awaited<ReturnType<typeof getDisciplines>>> = ({
-    signal,
-  }) => getDisciplines(requestOptions, signal);
-
-  return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
-    Awaited<ReturnType<typeof getDisciplines>>,
-    TError,
-    TData
-  > & { queryKey: DataTag<QueryKey, TData> };
-};
-
-export type GetDisciplinesQueryResult = NonNullable<
-  Awaited<ReturnType<typeof getDisciplines>>
->;
-export type GetDisciplinesQueryError =
-  | UnauthorizedErrorResponse
-  | PermissionDeniedErrorResponse;
-
-export function useGetDisciplines<
-  TData = Awaited<ReturnType<typeof getDisciplines>>,
-  TError = UnauthorizedErrorResponse | PermissionDeniedErrorResponse,
->(
-  options: {
-    query: Partial<
-      UseQueryOptions<Awaited<ReturnType<typeof getDisciplines>>, TError, TData>
-    > &
-      Pick<
-        DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof getDisciplines>>,
-          TError,
-          Awaited<ReturnType<typeof getDisciplines>>
-        >,
-        "initialData"
-      >;
-    request?: SecondParameter<typeof customInstance>;
-  },
-  queryClient?: QueryClient,
-): DefinedUseQueryResult<TData, TError> & {
-  queryKey: DataTag<QueryKey, TData>;
-};
-export function useGetDisciplines<
-  TData = Awaited<ReturnType<typeof getDisciplines>>,
-  TError = UnauthorizedErrorResponse | PermissionDeniedErrorResponse,
->(
-  options?: {
-    query?: Partial<
-      UseQueryOptions<Awaited<ReturnType<typeof getDisciplines>>, TError, TData>
-    > &
-      Pick<
-        UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof getDisciplines>>,
-          TError,
-          Awaited<ReturnType<typeof getDisciplines>>
-        >,
-        "initialData"
-      >;
-    request?: SecondParameter<typeof customInstance>;
-  },
-  queryClient?: QueryClient,
-): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> };
-export function useGetDisciplines<
-  TData = Awaited<ReturnType<typeof getDisciplines>>,
-  TError = UnauthorizedErrorResponse | PermissionDeniedErrorResponse,
->(
-  options?: {
-    query?: Partial<
-      UseQueryOptions<Awaited<ReturnType<typeof getDisciplines>>, TError, TData>
-    >;
-    request?: SecondParameter<typeof customInstance>;
-  },
-  queryClient?: QueryClient,
-): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> };
-/**
- * @summary Get all existing disciplines
- */
-
-export function useGetDisciplines<
-  TData = Awaited<ReturnType<typeof getDisciplines>>,
-  TError = UnauthorizedErrorResponse | PermissionDeniedErrorResponse,
->(
-  options?: {
-    query?: Partial<
-      UseQueryOptions<Awaited<ReturnType<typeof getDisciplines>>, TError, TData>
-    >;
-    request?: SecondParameter<typeof customInstance>;
-  },
-  queryClient?: QueryClient,
-): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> } {
-  const queryOptions = getGetDisciplinesQueryOptions(options);
-
-  const query = useQuery(queryOptions, queryClient) as UseQueryResult<
-    TData,
-    TError
-  > & { queryKey: DataTag<QueryKey, TData> };
-
-  query.queryKey = queryOptions.queryKey;
-
-  return query;
-}
-
-/**
  * Create a new discipline
  * @summary Create a new discipline
  */
@@ -453,3 +322,133 @@ export const useUpdateDiscipline = <
 
   return useMutation(mutationOptions, queryClient);
 };
+/**
+ * Get all existing disciplines
+ * @summary Get all existing disciplines
+ */
+export const getDisciplines = (
+  options?: SecondParameter<typeof customInstance>,
+  signal?: AbortSignal,
+) => {
+  return customInstance<Discipline[]>(
+    { url: `/disciplines/get-all`, method: "GET", signal },
+    options,
+  );
+};
+
+export const getGetDisciplinesQueryKey = () => {
+  return [`/disciplines/get-all`] as const;
+};
+
+export const getGetDisciplinesQueryOptions = <
+  TData = Awaited<ReturnType<typeof getDisciplines>>,
+  TError = UnauthorizedErrorResponse | PermissionDeniedErrorResponse,
+>(options?: {
+  query?: Partial<
+    UseQueryOptions<Awaited<ReturnType<typeof getDisciplines>>, TError, TData>
+  >;
+  request?: SecondParameter<typeof customInstance>;
+}) => {
+  const { query: queryOptions, request: requestOptions } = options ?? {};
+
+  const queryKey = queryOptions?.queryKey ?? getGetDisciplinesQueryKey();
+
+  const queryFn: QueryFunction<Awaited<ReturnType<typeof getDisciplines>>> = ({
+    signal,
+  }) => getDisciplines(requestOptions, signal);
+
+  return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
+    Awaited<ReturnType<typeof getDisciplines>>,
+    TError,
+    TData
+  > & { queryKey: DataTag<QueryKey, TData> };
+};
+
+export type GetDisciplinesQueryResult = NonNullable<
+  Awaited<ReturnType<typeof getDisciplines>>
+>;
+export type GetDisciplinesQueryError =
+  | UnauthorizedErrorResponse
+  | PermissionDeniedErrorResponse;
+
+export function useGetDisciplines<
+  TData = Awaited<ReturnType<typeof getDisciplines>>,
+  TError = UnauthorizedErrorResponse | PermissionDeniedErrorResponse,
+>(
+  options: {
+    query: Partial<
+      UseQueryOptions<Awaited<ReturnType<typeof getDisciplines>>, TError, TData>
+    > &
+      Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getDisciplines>>,
+          TError,
+          Awaited<ReturnType<typeof getDisciplines>>
+        >,
+        "initialData"
+      >;
+    request?: SecondParameter<typeof customInstance>;
+  },
+  queryClient?: QueryClient,
+): DefinedUseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData>;
+};
+export function useGetDisciplines<
+  TData = Awaited<ReturnType<typeof getDisciplines>>,
+  TError = UnauthorizedErrorResponse | PermissionDeniedErrorResponse,
+>(
+  options?: {
+    query?: Partial<
+      UseQueryOptions<Awaited<ReturnType<typeof getDisciplines>>, TError, TData>
+    > &
+      Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getDisciplines>>,
+          TError,
+          Awaited<ReturnType<typeof getDisciplines>>
+        >,
+        "initialData"
+      >;
+    request?: SecondParameter<typeof customInstance>;
+  },
+  queryClient?: QueryClient,
+): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> };
+export function useGetDisciplines<
+  TData = Awaited<ReturnType<typeof getDisciplines>>,
+  TError = UnauthorizedErrorResponse | PermissionDeniedErrorResponse,
+>(
+  options?: {
+    query?: Partial<
+      UseQueryOptions<Awaited<ReturnType<typeof getDisciplines>>, TError, TData>
+    >;
+    request?: SecondParameter<typeof customInstance>;
+  },
+  queryClient?: QueryClient,
+): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> };
+/**
+ * @summary Get all existing disciplines
+ */
+
+export function useGetDisciplines<
+  TData = Awaited<ReturnType<typeof getDisciplines>>,
+  TError = UnauthorizedErrorResponse | PermissionDeniedErrorResponse,
+>(
+  options?: {
+    query?: Partial<
+      UseQueryOptions<Awaited<ReturnType<typeof getDisciplines>>, TError, TData>
+    >;
+    request?: SecondParameter<typeof customInstance>;
+  },
+  queryClient?: QueryClient,
+): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> } {
+  const queryOptions = getGetDisciplinesQueryOptions(options);
+
+  const query = useQuery(queryOptions, queryClient) as UseQueryResult<
+    TData,
+    TError
+  > & { queryKey: DataTag<QueryKey, TData> };
+
+  query.queryKey = queryOptions.queryKey;
+
+  return query;
+}

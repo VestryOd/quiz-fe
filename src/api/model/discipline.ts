@@ -7,6 +7,7 @@
  */
 
 export interface Discipline {
+  id: string;
   name: string;
   link_name: string;
 }

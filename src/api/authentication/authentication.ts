@@ -17,7 +17,6 @@ import type {
   AuthResponse,
   PermissionDeniedErrorResponse,
   PostAuthLoginBody,
-  PostAuthRefreshTokenBody,
   PostAuthSignUpBody,
   UnauthorizedErrorResponse,
   UserResponse,
@@ -119,18 +118,11 @@ export const usePostAuthLogin = <TError = void, TContext = unknown>(
  * @summary Refresh user's token
  */
 export const postAuthRefreshToken = (
-  postAuthRefreshTokenBody: PostAuthRefreshTokenBody,
   options?: SecondParameter<typeof customInstance>,
   signal?: AbortSignal,
 ) => {
   return customInstance<AuthResponse>(
-    {
-      url: `/auth/refresh-token`,
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      data: postAuthRefreshTokenBody,
-      signal,
-    },
+    { url: `/auth/refresh-token`, method: "POST", signal },
     options,
   );
 };
@@ -142,14 +134,14 @@ export const getPostAuthRefreshTokenMutationOptions = <
   mutation?: UseMutationOptions<
     Awaited<ReturnType<typeof postAuthRefreshToken>>,
     TError,
-    { data: PostAuthRefreshTokenBody },
+    void,
     TContext
   >;
   request?: SecondParameter<typeof customInstance>;
 }): UseMutationOptions<
   Awaited<ReturnType<typeof postAuthRefreshToken>>,
   TError,
-  { data: PostAuthRefreshTokenBody },
+  void,
   TContext
 > => {
   const mutationKey = ["postAuthRefreshToken"];
@@ -163,11 +155,9 @@ export const getPostAuthRefreshTokenMutationOptions = <
 
   const mutationFn: MutationFunction<
     Awaited<ReturnType<typeof postAuthRefreshToken>>,
-    { data: PostAuthRefreshTokenBody }
-  > = (props) => {
-    const { data } = props ?? {};
-
-    return postAuthRefreshToken(data, requestOptions);
+    void
+  > = () => {
+    return postAuthRefreshToken(requestOptions);
   };
 
   return { mutationFn, ...mutationOptions };
@@ -176,7 +166,7 @@ export const getPostAuthRefreshTokenMutationOptions = <
 export type PostAuthRefreshTokenMutationResult = NonNullable<
   Awaited<ReturnType<typeof postAuthRefreshToken>>
 >;
-export type PostAuthRefreshTokenMutationBody = PostAuthRefreshTokenBody;
+
 export type PostAuthRefreshTokenMutationError =
   | UnauthorizedErrorResponse
   | PermissionDeniedErrorResponse;
@@ -192,7 +182,7 @@ export const usePostAuthRefreshToken = <
     mutation?: UseMutationOptions<
       Awaited<ReturnType<typeof postAuthRefreshToken>>,
       TError,
-      { data: PostAuthRefreshTokenBody },
+      void,
       TContext
     >;
     request?: SecondParameter<typeof customInstance>;
@@ -201,7 +191,7 @@ export const usePostAuthRefreshToken = <
 ): UseMutationResult<
   Awaited<ReturnType<typeof postAuthRefreshToken>>,
   TError,
-  { data: PostAuthRefreshTokenBody },
+  void,
   TContext
 > => {
   const mutationOptions = getPostAuthRefreshTokenMutationOptions(options);

@@ -7,5 +7,5 @@
  */
 
 export type NotFoundErrorResponse = {
-  message?: string;
+  message: string;
 };

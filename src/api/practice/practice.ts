@@ -23,6 +23,7 @@ import type {
 
 import type {
   BadRequestByIdErrorResponse,
+  GetAllPractice200,
   GetAllPracticeParams,
   PermissionDeniedErrorResponse,
   PostCreatePracticeBody,
@@ -140,7 +141,7 @@ export const getAllPractice = (
   options?: SecondParameter<typeof customInstance>,
   signal?: AbortSignal,
 ) => {
-  return customInstance<Practice[]>(
+  return customInstance<GetAllPractice200>(
     { url: `/${discipline}/practice`, method: "GET", params, signal },
     options,
   );

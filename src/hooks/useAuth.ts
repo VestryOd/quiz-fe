@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import { useState, useEffect } from 'react';
-import Cookies from 'js-cookie';
-import { useQueryClient } from '@tanstack/react-query';
-import { redirectTo } from '@/lib/redirect';
+import { useState, useEffect } from "react";
+import Cookies from "js-cookie";
+import { useQueryClient } from "@tanstack/react-query";
+import { redirectTo } from "@/lib/redirect";
 
 export const useAuth = () => {
   const queryClient = useQueryClient();
@@ -11,20 +11,20 @@ export const useAuth = () => {
 
   // We use useEffect to safely check for the token only on the client-side
   useEffect(() => {
-    const token = Cookies.get('accessToken');
+    const token = Cookies.get("accessToken");
     if (token) {
       setIsAuthenticated(true);
     }
   }, []);
 
   const logout = () => {
-    Cookies.remove('accessToken');
+    Cookies.remove("accessToken");
     setIsAuthenticated(false);
     // Invalidate all queries to clear user-specific data
     queryClient.invalidateQueries();
     // Redirect to login page
-    redirectTo('/login');
+    redirectTo("/login");
   };
 
   return { isAuthenticated, logout };
-}; 
+};

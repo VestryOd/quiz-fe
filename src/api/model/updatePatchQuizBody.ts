@@ -8,6 +8,6 @@
 
 export type UpdatePatchQuizBody = {
   override_answers: boolean;
-  right?: string[];
-  wrong?: string[];
+  right: string[];
+  wrong: string[];
 };

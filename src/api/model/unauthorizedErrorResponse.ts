@@ -7,5 +7,5 @@
  */
 
 export type UnauthorizedErrorResponse = {
-  message?: string;
+  message: string;
 };

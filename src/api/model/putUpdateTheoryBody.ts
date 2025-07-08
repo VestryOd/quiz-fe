@@ -10,7 +10,7 @@ import type { Content } from "./content";
 
 export type PutUpdateTheoryBody = {
   title: string;
-  links?: PutUpdateTheoryBodyLinksItem[];
+  links: PutUpdateTheoryBodyLinksItem[];
   /** @minItems 1 */
-  content?: Content[];
+  content: Content[];
 };

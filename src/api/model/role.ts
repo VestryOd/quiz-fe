@@ -8,6 +8,7 @@
 import type { RoleTypes } from "./roleTypes";
 
 export interface Role {
+  id: string;
   name: RoleTypes;
   access_level: number;
 }

@@ -8,5 +8,5 @@
 
 export type CreatePostQuizBody = {
   tasks_limit: number;
-  questions_limit?: number;
+  questions_limit: number;
 };

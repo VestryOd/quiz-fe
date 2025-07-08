@@ -13,7 +13,7 @@ type SignUpFormValues = {
 };
 
 function isAxiosError(error: unknown): error is import("axios").AxiosError {
-  return typeof error === 'object' && error !== null && 'isAxiosError' in error;
+  return typeof error === "object" && error !== null && "isAxiosError" in error;
 }
 
 export default function SignUpPage() {
@@ -27,14 +27,21 @@ export default function SignUpPage() {
       { data: apiValues },
       {
         onSuccess: () => {
-          message.success("Регистрация прошла успешно! Теперь вы можете войти.");
+          message.success(
+            "Регистрация прошла успешно! Теперь вы можете войти.",
+          );
           router.push("/login");
         },
         onError: (error) => {
           let errorMessage = "Произошла ошибка при регистрации.";
           if (isAxiosError(error)) {
             const data = error.response?.data;
-            if (data && typeof data === 'object' && 'message' in data && typeof data.message === 'string') {
+            if (
+              data &&
+              typeof data === "object" &&
+              "message" in data &&
+              typeof data.message === "string"
+            ) {
               errorMessage = data.message;
             }
           }
@@ -63,7 +70,13 @@ export default function SignUpPage() {
         <Form.Item
           label="Email"
           name="user_email"
-          rules={[{ required: true, type: "email", message: "Введите корректный email!" }]}
+          rules={[
+            {
+              required: true,
+              type: "email",
+              message: "Введите корректный email!",
+            },
+          ]}
         >
           <Input type="email" autoComplete="email" />
         </Form.Item>

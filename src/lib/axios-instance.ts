@@ -19,9 +19,15 @@ AXIOS_INSTANCE.interceptors.request.use(
 
 // --- Response interceptor for token refresh ---
 let isRefreshing = false;
-let failedQueue: { resolve: (value?: string | null) => void; reject: (reason?: AxiosError | null) => void }[] = [];
+let failedQueue: {
+  resolve: (value?: string | null) => void;
+  reject: (reason?: AxiosError | null) => void;
+}[] = [];
 
-const processQueue = (error: AxiosError | null, token: string | null = null) => {
+const processQueue = (
+  error: AxiosError | null,
+  token: string | null = null,
+) => {
   failedQueue.forEach((prom) => {
     if (error) {
       prom.reject(error);
@@ -48,7 +54,9 @@ AXIOS_INSTANCE.interceptors.response.use(
         })
           .then((token) => {
             if (originalRequest) {
-              (originalRequest as { headers?: Record<string, string> }).headers!['Authorization'] = 'Bearer ' + token;
+              (
+                originalRequest as { headers?: Record<string, string> }
+              ).headers!["Authorization"] = "Bearer " + token;
               return AXIOS_INSTANCE(originalRequest);
             }
           })
@@ -62,11 +70,14 @@ AXIOS_INSTANCE.interceptors.response.use(
       try {
         // Refresh token logic. We might need to send a refresh token from cookies.
         // To the endpoint is /auth/refresh-token
-        const { data } = await AXIOS_INSTANCE.post('/auth/refresh-token');
-        
-        Cookies.set('accessToken', data.token, { expires: 7 });
-        AXIOS_INSTANCE.defaults.headers.common['Authorization'] = 'Bearer ' + data.token;
-        (originalRequest as { headers?: Record<string, string> }).headers!['Authorization'] = 'Bearer ' + data.token;
+        const { data } = await AXIOS_INSTANCE.post("/auth/refresh-token");
+
+        Cookies.set("accessToken", data.token, { expires: 7 });
+        AXIOS_INSTANCE.defaults.headers.common["Authorization"] =
+          "Bearer " + data.token;
+        (originalRequest as { headers?: Record<string, string> }).headers![
+          "Authorization"
+        ] = "Bearer " + data.token;
 
         processQueue(null, data.token);
         if (originalRequest) {
@@ -75,9 +86,9 @@ AXIOS_INSTANCE.interceptors.response.use(
       } catch (refreshError: unknown) {
         processQueue(refreshError as AxiosError, null);
         // On refresh error, logout user
-        Cookies.remove('accessToken');
+        Cookies.remove("accessToken");
         // Redirect to login page
-        window.location.href = '/login';
+        window.location.href = "/login";
         return Promise.reject(refreshError);
       } finally {
         isRefreshing = false;

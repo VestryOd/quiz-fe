@@ -7,5 +7,5 @@
  */
 
 export type BadRequestByIdErrorResponse = {
-  message?: string;
+  message: string;
 };

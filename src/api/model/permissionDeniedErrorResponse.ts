@@ -7,5 +7,5 @@
  */
 
 export type PermissionDeniedErrorResponse = {
-  message?: string;
+  message: string;
 };

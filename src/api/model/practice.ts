@@ -8,12 +8,13 @@
 import type { User } from "./user";
 
 export interface Practice {
+  id: string;
   discipline: string;
-  code?: string;
+  code: string;
   answers: string[];
   right_answer: number[];
-  details?: string;
-  created_at?: string;
+  details: string;
+  created_at: string;
   created_by: User;
-  updated_at?: string;
+  updated_at: string;
 }

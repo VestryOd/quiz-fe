@@ -24,6 +24,7 @@ import type {
 import type {
   BadRequestByIdErrorResponse,
   CreatePostQuizBody,
+  GetAllQuizzes200,
   GetAllQuizzesParams,
   PermissionDeniedErrorResponse,
   Quiz,
@@ -44,7 +45,7 @@ export const getAllQuizzes = (
   options?: SecondParameter<typeof customInstance>,
   signal?: AbortSignal,
 ) => {
-  return customInstance<Quiz[]>(
+  return customInstance<GetAllQuizzes200>(
     { url: `/${discipline}/quiz`, method: "GET", params, signal },
     options,
   );

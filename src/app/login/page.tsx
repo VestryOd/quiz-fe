@@ -8,7 +8,7 @@ import Cookies from "js-cookie";
 import { useQueryClient } from "@tanstack/react-query";
 
 function isAxiosError(error: unknown): error is import("axios").AxiosError {
-  return typeof error === 'object' && error !== null && 'isAxiosError' in error;
+  return typeof error === "object" && error !== null && "isAxiosError" in error;
 }
 
 export default function LoginPage() {
@@ -33,14 +33,19 @@ export default function LoginPage() {
 
           // Invalidate queries that depend on auth status to refetch them
           queryClient.invalidateQueries();
-          
+
           router.push("/profile");
         },
         onError: (error) => {
           let errorMessage = "Ошибка входа. Проверьте учетные данные.";
           if (isAxiosError(error)) {
             const data = error.response?.data;
-            if (data && typeof data === 'object' && 'message' in data && typeof data.message === 'string') {
+            if (
+              data &&
+              typeof data === "object" &&
+              "message" in data &&
+              typeof data.message === "string"
+            ) {
               errorMessage = data.message;
             }
           }
@@ -63,7 +68,13 @@ export default function LoginPage() {
         <Form.Item
           label="Email"
           name="user_email"
-          rules={[{ required: true, type: "email", message: "Введите корректный email!" }]}
+          rules={[
+            {
+              required: true,
+              type: "email",
+              message: "Введите корректный email!",
+            },
+          ]}
         >
           <Input type="email" autoComplete="email" />
         </Form.Item>

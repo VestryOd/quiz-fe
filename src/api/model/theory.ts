@@ -10,13 +10,13 @@ import type { TheoryLinksItem } from "./theoryLinksItem";
 import type { User } from "./user";
 
 export interface Theory {
-  _id?: string;
+  id: string;
   discipline: string;
   title: string;
   /** @minItems 1 */
   content: Content[];
-  links?: TheoryLinksItem[];
-  created_at?: string;
+  links: TheoryLinksItem[];
+  created_at: string;
   created_by: User;
-  updated_at?: string;
+  updated_at: string;
 }

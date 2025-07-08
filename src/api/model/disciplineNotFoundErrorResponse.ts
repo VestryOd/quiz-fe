@@ -7,5 +7,5 @@
  */
 
 export type DisciplineNotFoundErrorResponse = {
-  message?: string;
+  message: string;
 };

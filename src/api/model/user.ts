@@ -8,6 +8,7 @@
 import type { RoleTypes } from "./roleTypes";
 
 export interface User {
+  id: string;
   /**
    * @minLength 5
    * @maxLength 100

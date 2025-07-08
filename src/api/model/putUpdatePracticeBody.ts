@@ -8,9 +8,9 @@
 
 export type PutUpdatePracticeBody = {
   /** @minLength 3 */
-  code?: string;
+  code: string;
   /** @minItems 2 */
   answers: string[];
   right_answer: number[];
-  details?: string;
+  details: string;
 };

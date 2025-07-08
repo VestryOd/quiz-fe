@@ -9,9 +9,10 @@ import type { TheoryItemTypes } from "./theoryItemTypes";
 import type { ContentContentDataItem } from "./contentContentDataItem";
 
 export interface Content {
+  id: string;
   content_type: TheoryItemTypes;
-  parentId?: string;
+  parentId: string;
   order: number;
-  content_data: ContentContentDataItem[];
-  content_image?: string;
+  content_data: ContentContentDataItem | ContentContentDataItem[];
+  content_image: string;
 }

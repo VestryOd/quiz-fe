@@ -13,7 +13,9 @@ const fetchSwaggerJson = (url) => {
       .get(url, (res) => {
         if (res.statusCode < 200 || res.statusCode >= 300) {
           return reject(
-            new Error(`Failed to fetch swagger.json: Status Code ${res.statusCode}`)
+            new Error(
+              `Failed to fetch swagger.json: Status Code ${res.statusCode}`,
+            ),
           );
         }
         let data = "";
@@ -96,17 +98,21 @@ function removeNullable(node) {
 
 // Fix 4: Specific logical fix for a known parameter name mismatch.
 function fixParameterMismatch(spec) {
-    const path = '/api/v1/disciplines/{disciplineId}/practice';
-    if (spec.paths && spec.paths[path] && spec.paths[path].post && spec.paths[path].post.parameters) {
-        const params = spec.paths[path].post.parameters;
-        const paramToFix = params.find(p => p.name === 'id');
-        if (paramToFix) {
-            console.log("Applying specific fix for parameter mismatch...");
-            paramToFix.name = 'disciplineId';
-        }
+  const path = "/api/v1/disciplines/{disciplineId}/practice";
+  if (
+    spec.paths &&
+    spec.paths[path] &&
+    spec.paths[path].post &&
+    spec.paths[path].post.parameters
+  ) {
+    const params = spec.paths[path].post.parameters;
+    const paramToFix = params.find((p) => p.name === "id");
+    if (paramToFix) {
+      console.log("Applying specific fix for parameter mismatch...");
+      paramToFix.name = "disciplineId";
     }
+  }
 }
-
 
 // --- MAIN EXECUTION ---
 
@@ -121,18 +127,17 @@ async function main() {
 
     console.log("Applying fix 2: Renaming 'examples' to 'example'...");
     fixExamples(swaggerSpec);
-    
+
     console.log("Applying fix 3: Removing 'nullable' property...");
     removeNullable(swaggerSpec);
 
-    console.log("Applying fix 4: Correcting specific parameter name mismatch...");
+    console.log(
+      "Applying fix 4: Correcting specific parameter name mismatch...",
+    );
     fixParameterMismatch(swaggerSpec);
 
     console.log(`Writing normalized spec to ${OUTPUT_FILE_PATH}...`);
-    await fs.writeFile(
-      OUTPUT_FILE_PATH,
-      JSON.stringify(swaggerSpec, null, 2)
-    );
+    await fs.writeFile(OUTPUT_FILE_PATH, JSON.stringify(swaggerSpec, null, 2));
 
     console.log("✅ Successfully normalized and saved swagger.local.json!");
   } catch (error) {
@@ -142,4 +147,4 @@ async function main() {
   }
 }
 
-main(); 
+main();

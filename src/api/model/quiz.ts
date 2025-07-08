@@ -11,13 +11,14 @@ import type { QuizAnsweredQuestions } from "./quizAnsweredQuestions";
 import type { User } from "./user";
 
 export interface Quiz {
+  id: string;
   discipline: string;
   /** @minLength 1 */
   tasks: Practice[];
-  questions?: Theory[];
-  answered_questions?: QuizAnsweredQuestions;
+  questions: Theory[];
+  answered_questions: QuizAnsweredQuestions;
   done: boolean;
-  created_at?: string;
-  updated_at?: string;
+  created_at: string;
+  updated_at: string;
   created_by: User;
 }

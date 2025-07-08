@@ -24,6 +24,7 @@ import type {
 import type {
   BadRequestByIdErrorResponse,
   DisciplineNotFoundErrorResponse,
+  GetAllTheory200,
   GetAllTheoryParams,
   PermissionDeniedErrorResponse,
   PostCreateTheoryBody,
@@ -141,7 +142,7 @@ export const getAllTheory = (
   options?: SecondParameter<typeof customInstance>,
   signal?: AbortSignal,
 ) => {
-  return customInstance<Theory[]>(
+  return customInstance<GetAllTheory200>(
     { url: `/${discipline}/theory`, method: "GET", params, signal },
     options,
   );

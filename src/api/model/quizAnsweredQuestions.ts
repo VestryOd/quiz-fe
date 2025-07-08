@@ -7,6 +7,6 @@
  */
 
 export type QuizAnsweredQuestions = {
-  right?: string[];
-  wrong?: string[];
+  right: string[];
+  wrong: string[];
 };

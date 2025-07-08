@@ -8,7 +8,7 @@
 
 export type PostAuthLoginBody = {
   /** @pattern /^[\w_.]+@([\w-]+\.)+[\w-]{2,4}$/ */
-  user_email?: string;
+  user_email: string;
   /** @minLength 6 */
   user_password: string;
 };

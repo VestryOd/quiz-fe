@@ -1,0 +1,11 @@
+.theoryItemWrapper {
+  cursor: pointer;
+  margin-bottom: 16px;
+  border-radius: 8px;
+  transition: background 0.2s;
+  padding: 12px;
+}
+
+.theoryItemWrapper:hover {
+  background: #f5f5f5;
+} 

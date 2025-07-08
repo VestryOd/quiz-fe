@@ -5,8 +5,12 @@
  * This is a simple app for preparation for frontend interview based on the OpenAPI 3.0 specification
  * OpenAPI spec version: 1.0.0
  */
+import type { Quiz } from "./quiz";
 
-export type PostAuthRefreshTokenBody = {
-  /** @pattern /^[\w_.]+@([\w-]+\.)+[\w-]{2,4}$/ */
-  user_email?: string;
+export type GetAllQuizzes200 = {
+  total: number;
+  has_next: boolean;
+  page: number;
+  limit: number;
+  items: Quiz[];
 };

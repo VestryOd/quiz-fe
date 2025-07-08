@@ -5,10 +5,10 @@
  * This is a simple app for preparation for frontend interview based on the OpenAPI 3.0 specification
  * OpenAPI spec version: 1.0.0
  */
+import type { PutUpdateTheoryBodyLinksItemTitle } from "./putUpdateTheoryBodyLinksItemTitle";
 
 export type PutUpdateTheoryBodyLinksItem = {
   resource_name: string;
   url: string;
-  /** @nullable */
-  title?: string | null;
+  title: PutUpdateTheoryBodyLinksItemTitle;
 };

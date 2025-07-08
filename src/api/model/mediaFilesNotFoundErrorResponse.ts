@@ -7,5 +7,5 @@
  */
 
 export type MediaFilesNotFoundErrorResponse = {
-  message?: string;
+  message: string;
 };

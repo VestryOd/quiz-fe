@@ -10,7 +10,7 @@ import type { Content } from "./content";
 
 export type PostCreateTheoryBody = {
   title: string;
-  links?: PostCreateTheoryBodyLinksItem[];
+  links: PostCreateTheoryBodyLinksItem[];
   /** @minItems 1 */
-  content?: Content[];
+  content: Content[];
 };
